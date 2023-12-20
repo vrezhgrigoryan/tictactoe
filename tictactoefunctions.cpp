@@ -263,7 +263,7 @@ int drawMenu()
 	menu = newwin(10,20, 0, 0);
 
 	std::vector<std::string> activeItems = {"start", "exit"};
-	std::string* current;
+	std::string* current = &activeItems[0];
 	
 	int key = getch();
 	do
@@ -296,4 +296,5 @@ int drawMenu()
 		initCurses();
 		drawBoard();
 	} while (playGame());
+  return true;
 }
