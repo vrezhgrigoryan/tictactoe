@@ -3,12 +3,7 @@
 
 int main() {
 
-	do {
-
-		initCurses();
-		drawBoard();
-
-	} while (playGame());
+	drawMenu();
 
 	endwin();
 	return(0);

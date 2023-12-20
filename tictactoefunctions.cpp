@@ -1,8 +1,9 @@
 #include <ncurses.h>
+#include <vector>
+#include <iostream>
 #include "tictactoe.h"
 
 void initCurses() {
-
 	initscr();
 	cbreak();
 	noecho();
@@ -153,7 +154,6 @@ int playGame() {
 	}
 	return FALSE;
 	endwin();
-
 }
 
 int updateBoardData(int * boardData, int x, int y, int XorO) {
@@ -253,4 +253,47 @@ int checkWin(int * boardData) {
 	else
 		return FALSE;
 
+}
+
+int drawMenu()
+{
+	initCurses();
+
+	WINDOW *menu;
+	menu = newwin(10,20, 0, 0);
+
+	std::vector<std::string> activeItems = {"start", "exit"};
+	std::string* current;
+	
+	int key = getch();
+	do
+	{
+		key = getch();
+		wclear(menu);
+		box(menu, 0, 0);
+		if(key == KEY_UP){
+			current = &activeItems[0];
+		}else if (key == KEY_DOWN)
+		{
+			current = &activeItems[1];
+		}
+		for (int i = 0; i < activeItems.size(); i++) {
+			if (&activeItems[i] == current) {
+				mvwprintw(menu, i + 1, 2, "----->");
+				mvwprintw(menu, i + 1, 9, "%s", current->c_str());
+			} else {
+				mvwprintw(menu, i + 1, 2, "%s", activeItems[i].c_str());
+			}
+		}
+		wrefresh(menu);
+	} while (key != 10);
+	if (current == &activeItems[1]){
+		return FALSE;
+		endwin();
+	}
+	clear();
+	do {
+		initCurses();
+		drawBoard();
+	} while (playGame());
 }

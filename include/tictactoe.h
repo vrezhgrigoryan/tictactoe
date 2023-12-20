@@ -15,3 +15,4 @@ void initBoard(int * boardData);
 int playGame();
 int updateBoardData(int * boardData, int x, int y, int XorO);
 int checkWin(int * boardData);
+int drawMenu();
