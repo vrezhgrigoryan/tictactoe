@@ -3,9 +3,8 @@
 
 #include <vector>
 
-
-
-namespace {
+namespace
+{
 	using unit = int;
 	using row = std::vector<unit>;
 	using matrix = std::vector<row>;
@@ -14,20 +13,20 @@ namespace {
 
 }
 
-
-class bord{
+class bord
+{
 public:
 	bord();
-	void add(int y, int x,int playerNumber);
+	void add(int y, int x, int playerNumber);
 	bool haveWiner();
 	unit getUnit(int y, int x);
+
 private:
 	matrix Matrix;
-
-
 };
 
-class Game{
+class Game
+{
 public:
 	Game();
 	int getPlayerNumber();
@@ -38,15 +37,13 @@ public:
 	void addSimvol();
 	unit getBordUnit(int y, int x);
 
-
 	~Game();
- private:
- 	bord Bord;
+
+private:
+	bord Bord;
 	int x;
 	int y;
 	int playerNumber;
+};
 
-
- };
-
- #endif
+#endif

@@ -4,10 +4,6 @@
 
 Menu::Menu() : Winisopen(true), cursorY(CURSOR_START_Y)
 {
-
-    this->activeItems = {"start", "exit"};
-    this->current = &this->activeItems[0];
-
     initscr();
     cbreak();
     noecho();
@@ -16,6 +12,10 @@ Menu::Menu() : Winisopen(true), cursorY(CURSOR_START_Y)
     nodelay(stdscr, TRUE);
     menuWindow = newwin(MENU_HEIGHT, MENU_LENGHT, 0, 0);
     box(menuWindow, 0, 0);
+    
+    this->graphik.gameWin = newwin(20, 30, 0, 0);
+    this->activeItems = {"start", "exit"};
+    this->current = &this->activeItems[0];
 }
 Menu::~Menu(){};
 void Menu::run_menu()

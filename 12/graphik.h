@@ -16,8 +16,10 @@ public:
     void input();
     void printPlayer();
     void printWiner();
-private:
     WINDOW *gameWin;
+    int activX;
+    int activY;
+private:
 	Game game;
 };
 

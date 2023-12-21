@@ -3,7 +3,8 @@
 #include <iostream>
 #include "tictactoe.h"
 
-void initCurses() {
+void initCurses()
+{
 	initscr();
 	cbreak();
 	noecho();
@@ -11,37 +12,43 @@ void initCurses() {
 }
 
 /* Draw game grid */
-void drawBoard() {
+void drawBoard()
+{
 
 	int i, h;
 
-	for(i=0;i<=6;i++) {
+	for (i = 0; i <= 6; i++)
+	{
 		mvaddch(i, 0, '|');
 		mvaddch(i, 4, '|');
 		mvaddch(i, 8, '|');
-		mvaddch(i, 12,'|');
+		mvaddch(i, 12, '|');
 
-		if(i%2 == 0){
-			for(h=0;h<=12;h++) {
+		if (i % 2 == 0)
+		{
+			for (h = 0; h <= 12; h++)
+			{
 				mvaddch(i, h, '-');
 			}
 		}
-		move(1,2);
+		move(1, 2);
 	}
 	refresh();
 }
 
-void initBoard(int * boardData){
+void initBoard(int *boardData)
+{
 
 	int i;
 
-	for(i=0; i<=8;i++){
-		boardData[i] = i+2;
+	for (i = 0; i <= 8; i++)
+	{
+		boardData[i] = i + 2;
 	}
 }
 
-
-int playGame() {
+int playGame()
+{
 
 	int boardData[9];
 	int playerNum = 1;
@@ -58,9 +65,11 @@ int playGame() {
 	move(y, x); /* move to origin */
 	refresh();
 
-	while (inputChar != 'q') {
+	while (inputChar != 'q')
+	{
 
-		if(nMoves == 9) {
+		if (nMoves == 9)
+		{
 			mvprintw(10, 0, "Tie game");
 			inputChar = getch();
 			erase();
@@ -69,50 +78,59 @@ int playGame() {
 		inputChar = getch();
 
 		/* If not spacebar, they are moving */
-		if(inputChar != ' '){
+		if (inputChar != ' ')
+		{
 
-			switch (inputChar){
+			switch (inputChar)
+			{
 
-				case KEY_UP:
-					if(y == 3 || y == 5){
-						move(y-=2, x);
-					}
-					break;
+			case KEY_UP:
+				if (y == 3 || y == 5)
+				{
+					move(y -= 2, x);
+				}
+				break;
 
-				case KEY_DOWN:
-					if(y == 1 || y == 3){
-						move(y+=2, x);
-					}
-					break;
+			case KEY_DOWN:
+				if (y == 1 || y == 3)
+				{
+					move(y += 2, x);
+				}
+				break;
 
-				case KEY_LEFT:
-					if(x == 10 || x == 6){
-						move(y, x-=4);
-					}
-					break;
-				case KEY_RIGHT:
-					if(x == 2 || x == 6){
-						move(y, x+=4);
-					}
-					break;											
+			case KEY_LEFT:
+				if (x == 10 || x == 6)
+				{
+					move(y, x -= 4);
+				}
+				break;
+			case KEY_RIGHT:
+				if (x == 2 || x == 6)
+				{
+					move(y, x += 4);
+				}
+				break;
 			}
 		}
 
-		else if(playerNum == PLAYER_1 && inputChar == ' '){
+		else if (playerNum == PLAYER_1 && inputChar == ' ')
+		{
 
 			getyx(stdscr, y, x);
-			canWeMove = updateBoardData(boardData, x, y,1);
+			canWeMove = updateBoardData(boardData, x, y, 1);
 
-			if(canWeMove == OKAY) {
+			if (canWeMove == OKAY)
+			{
 
 				mvaddch(y, x, 'X');
 
 				/* Returns 1 if last move caused winning scenario */
 				didWin = checkWin(boardData);
 
-				if(didWin){
+				if (didWin)
+				{
 
-					mvprintw(10,0, "Player 1 wins");
+					mvprintw(10, 0, "Player 1 wins");
 					inputChar = getch();
 					erase();
 					return TRUE;
@@ -124,21 +142,24 @@ int playGame() {
 				move(y, x);
 			}
 		}
-		else if(playerNum == PLAYER_2 && inputChar == ' ') {
+		else if (playerNum == PLAYER_2 && inputChar == ' ')
+		{
 
 			getyx(stdscr, y, x);
-			canWeMove = updateBoardData(boardData, x, y,0);
+			canWeMove = updateBoardData(boardData, x, y, 0);
 
-			if(canWeMove == OKAY) {
+			if (canWeMove == OKAY)
+			{
 
 				mvaddch(y, x, 'O');
 
 				/* Returns 1 if last move caused winning scenario */
 				didWin = checkWin(boardData);
 
-				if(didWin){
+				if (didWin)
+				{
 
-					mvprintw(10,0, "Player 2 wins");
+					mvprintw(10, 0, "Player 2 wins");
 					inputChar = getch();
 					erase();
 					return TRUE;
@@ -156,46 +177,61 @@ int playGame() {
 	endwin();
 }
 
-int updateBoardData(int * boardData, int x, int y, int XorO) {
+int updateBoardData(int *boardData, int x, int y, int XorO)
+{
 
 	/* Check row 1*/
-	if(y == 1){
-		if(x == 2){
-			if(boardData[0] > 1){
+	if (y == 1)
+	{
+		if (x == 2)
+		{
+			if (boardData[0] > 1)
+			{
 				boardData[0] = XorO;
 				return OKAY;
 			}
 		}
-		else if( x == 6){	
-			if(boardData[1] > 1){
+		else if (x == 6)
+		{
+			if (boardData[1] > 1)
+			{
 				boardData[1] = XorO;
 				return OKAY;
 			}
 		}
-		else if( x == 10){
-			if(boardData[2] > 1){
+		else if (x == 10)
+		{
+			if (boardData[2] > 1)
+			{
 				boardData[2] = XorO;
 				return OKAY;
-			}				
+			}
 		}
-	} 
+	}
 
 	/* Check row 2 */
-	else if(y == 3){
-		if(x == 2){
-			if(boardData[3] > 1){
+	else if (y == 3)
+	{
+		if (x == 2)
+		{
+			if (boardData[3] > 1)
+			{
 				boardData[3] = XorO;
 				return OKAY;
 			}
-		}	
-		else if( x == 6){	
-			if(boardData[4] > 1){
+		}
+		else if (x == 6)
+		{
+			if (boardData[4] > 1)
+			{
 				boardData[4] = XorO;
 				return OKAY;
 			}
 		}
-		else if( x == 10){
-			if(boardData[5] > 1){
+		else if (x == 10)
+		{
+			if (boardData[5] > 1)
+			{
 				boardData[5] = XorO;
 				return OKAY;
 			}
@@ -203,56 +239,63 @@ int updateBoardData(int * boardData, int x, int y, int XorO) {
 	}
 
 	/* Check row 3*/
-	else if(y == 5){			
-		if(x == 2){
-			if(boardData[6] > 1){
+	else if (y == 5)
+	{
+		if (x == 2)
+		{
+			if (boardData[6] > 1)
+			{
 				boardData[6] = XorO;
 				return OKAY;
 			}
 		}
-		else if( x == 6){
-			if(boardData[7] > 1){
+		else if (x == 6)
+		{
+			if (boardData[7] > 1)
+			{
 				boardData[7] = XorO;
 				return OKAY;
 			}
 		}
-		else if( x == 10){
-			if(boardData[8] > 1){
+		else if (x == 10)
+		{
+			if (boardData[8] > 1)
+			{
 				boardData[8] = XorO;
 				return OKAY;
 			}
 		}
 	}
-	return FALSE;		
+	return FALSE;
 }
 
-int checkWin(int * boardData) {
+int checkWin(int *boardData)
+{
 
 	/* Check rows */
-	if( boardData[0] == boardData[1] && boardData[1]  == boardData[2] )
+	if (boardData[0] == boardData[1] && boardData[1] == boardData[2])
 		return TRUE;
-	else if( boardData[3] == boardData[4] && boardData[4] == boardData[5] )
-		return TRUE;	
-	else if( boardData[6] == boardData[7] && boardData[7] == boardData[8] )
+	else if (boardData[3] == boardData[4] && boardData[4] == boardData[5])
+		return TRUE;
+	else if (boardData[6] == boardData[7] && boardData[7] == boardData[8])
 		return TRUE;
 
 	/* Check cols */
-	else if( boardData[0] == boardData[3] && boardData[3] == boardData[6] )
+	else if (boardData[0] == boardData[3] && boardData[3] == boardData[6])
 		return TRUE;
-	else if( boardData[1] == boardData[4] && boardData[4] == boardData[7] )
+	else if (boardData[1] == boardData[4] && boardData[4] == boardData[7])
 		return TRUE;
-	else if( boardData[2] == boardData[5] && boardData[5] == boardData[8] )
+	else if (boardData[2] == boardData[5] && boardData[5] == boardData[8])
 		return TRUE;
 
 	/* Check diagonals */
-	else if( boardData[0] == boardData[4]  && boardData[4] == boardData[8] )
+	else if (boardData[0] == boardData[4] && boardData[4] == boardData[8])
 		return TRUE;
-	else if( boardData[2] == boardData[4] && boardData[4] == boardData[6] )
+	else if (boardData[2] == boardData[4] && boardData[4] == boardData[6])
 		return TRUE;
 
 	else
 		return FALSE;
-
 }
 
 int drawMenu()
@@ -260,41 +303,49 @@ int drawMenu()
 	initCurses();
 
 	WINDOW *menu;
-	menu = newwin(10,20, 0, 0);
+	menu = newwin(10, 20, 0, 0);
 
 	std::vector<std::string> activeItems = {"start", "exit"};
-	std::string* current = &activeItems[0];
-	
+	std::string *current = &activeItems[0];
+
 	int key = getch();
 	do
 	{
 		key = getch();
 		wclear(menu);
 		box(menu, 0, 0);
-		if(key == KEY_UP){
+		if (key == KEY_UP)
+		{
 			current = &activeItems[0];
-		}else if (key == KEY_DOWN)
+		}
+		else if (key == KEY_DOWN)
 		{
 			current = &activeItems[1];
 		}
-		for (int i = 0; i < activeItems.size(); i++) {
-			if (&activeItems[i] == current) {
+		for (int i = 0; i < activeItems.size(); i++)
+		{
+			if (&activeItems[i] == current)
+			{
 				mvwprintw(menu, i + 1, 2, "----->");
 				mvwprintw(menu, i + 1, 9, "%s", current->c_str());
-			} else {
+			}
+			else
+			{
 				mvwprintw(menu, i + 1, 2, "%s", activeItems[i].c_str());
 			}
 		}
 		wrefresh(menu);
 	} while (key != 10);
-	if (current == &activeItems[1]){
+	if (current == &activeItems[1])
+	{
 		return FALSE;
 		endwin();
 	}
 	clear();
-	do {
+	do
+	{
 		initCurses();
 		drawBoard();
 	} while (playGame());
-  return true;
+	return true;
 }

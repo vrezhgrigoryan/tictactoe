@@ -1,104 +1,126 @@
 #include "game.h"
 
-
-/////////////////////////////////////////////////////////////BORD
-
-bord::bord(){
-	Matrix.push_back(row(MATRIX_X,0));
-	Matrix.push_back(row(MATRIX_X,0));
-	Matrix.push_back(row(MATRIX_X,0));
-
+bord::bord()
+{
+	Matrix.push_back(row(MATRIX_X, 0));
+	Matrix.push_back(row(MATRIX_X, 0));
+	Matrix.push_back(row(MATRIX_X, 0));
 }
 
-void bord::add(int y, int x,int playerNumber){
-	if(playerNumber == 1){
+void bord::add(int y, int x, int playerNumber)
+{
+	if (playerNumber == 1)
+	{
 		Matrix[y][x] = 1;
 	}
-	if(playerNumber == 2){
+	if (playerNumber == 2)
+	{
 		Matrix[y][x] = 2;
 	}
 }
-bool bord::haveWiner(){
-		/* Check rows */
-	if( Matrix[0][0] == Matrix[0][1] && Matrix[0][2]  == Matrix[0][1] && Matrix[0][1]!= 0)
+bool bord::haveWiner()
+{
+	/* Check rows */
+	if (Matrix[0][0] == Matrix[0][1] && Matrix[0][2] == Matrix[0][1] && Matrix[0][1] != 0)
 		return true;
-	else if( Matrix[1][0] == Matrix[1][1] && Matrix[1][2] == Matrix[1][1] && Matrix[1][1]!= 0)
-		return true;	
-	else if( Matrix[2][0] == Matrix[2][1] && Matrix[2][2] == Matrix[2][1] && Matrix[2][1]!= 0)
+	else if (Matrix[1][0] == Matrix[1][1] && Matrix[1][2] == Matrix[1][1] && Matrix[1][1] != 0)
+		return true;
+	else if (Matrix[2][0] == Matrix[2][1] && Matrix[2][2] == Matrix[2][1] && Matrix[2][1] != 0)
 		return true;
 
 	/* Check cols */
-	else if( Matrix[0][0] == Matrix[1][0] && Matrix[2][0] == Matrix[1][0] && Matrix[1][0]!= 0)
+	else if (Matrix[0][0] == Matrix[1][0] && Matrix[2][0] == Matrix[1][0] && Matrix[1][0] != 0)
 		return true;
-	else if( Matrix[0][1] == Matrix[1][1] && Matrix[2][1] == Matrix[1][1] && Matrix[1][1]!= 0)
+	else if (Matrix[0][1] == Matrix[1][1] && Matrix[2][1] == Matrix[1][1] && Matrix[1][1] != 0)
 		return true;
-	else if( Matrix[0][2] == Matrix[1][2] && Matrix[2][2] == Matrix[1][2] && Matrix[1][2]!= 0)
+	else if (Matrix[0][2] == Matrix[1][2] && Matrix[2][2] == Matrix[1][2] && Matrix[1][2] != 0)
 		return true;
 
 	/* Check diagonals */
-	else if( Matrix[0][0] == Matrix[1][1]  && Matrix[2][2] == Matrix[1][1] && Matrix[1][1]!= 0)
+	else if (Matrix[0][0] == Matrix[1][1] && Matrix[2][2] == Matrix[1][1] && Matrix[1][1] != 0)
 		return true;
-	else if( Matrix[2][2] == Matrix[1][1] && Matrix[0][0] == Matrix[1][1] && Matrix[1][1]!= 0)
+	else if (Matrix[2][2] == Matrix[1][1] && Matrix[0][0] == Matrix[1][1] && Matrix[1][1] != 0)
 		return true;
 
 	else
 		return true;
 }
-unit bord::getUnit(int y, int x){
+unit bord::getUnit(int y, int x)
+{
 	return Matrix[y][x];
 }
 
-
 ////////////////////////////////////////////////////////////game logic /
 
-
-Game::Game():playerNumber(1){
-
+Game::Game() : playerNumber(1)
+{
 }
 
-int Game::getPlayerNumber(){
+int Game::getPlayerNumber()
+{
 	return playerNumber;
 }
-void Game::cursorGoUp(){
-	if(y < MATRIX_Y){
+void Game::cursorGoUp()
+{
+	if (y < MATRIX_Y)
+	{
 		y++;
-	}else{
+	}
+	else
+	{
 		return;
 	}
 }
-void Game::cursorGoLeft(){
-	if(x > 0){
+void Game::cursorGoLeft()
+{
+	if (x > 0)
+	{
 		x--;
-	}else{
+	}
+	else
+	{
 		return;
 	}
 }
-void Game::cursorGoRight(){
-	if(x < MATRIX_X){
+void Game::cursorGoRight()
+{
+	if (x < MATRIX_X)
+	{
 		x++;
-	}else{
+	}
+	else
+	{
 		return;
 	}
 }
-void Game::cursorGoDawn(){
-	if(y > 0){
+void Game::cursorGoDawn()
+{
+	if (y > 0)
+	{
 		y--;
-	}else{
+	}
+	else
+	{
 		return;
 	}
 }
-void Game::addSimvol(){
-	 Bord.add(x,y,playerNumber);
-	 if(playerNumber == 1){
+void Game::addSimvol()
+{
+	Bord.add(x, y, playerNumber);
+	if (playerNumber == 1)
+	{
 		playerNumber = 2;
-	 }else if(playerNumber == 2){
+	}
+	else if (playerNumber == 2)
+	{
 		playerNumber = 1;
-	 }
+	}
 }
-unit Game::getBordUnit(int y, int x){
-	return Bord.getUnit(y,x);
+unit Game::getBordUnit(int y, int x)
+{
+	return Bord.getUnit(y, x);
 }
 
-Game::~Game(){
-	
+Game::~Game()
+{
 }

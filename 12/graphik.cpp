@@ -10,69 +10,71 @@ inline const int PRINT_PLEYER_NUMBER_X = 2;
 
 Graphik::Graphik()
 {
-	gameWin = newwin(HEIGHT_WIN, LENGHT_WIN, 0, 0);
-    box(gameWin, 0, 0);
 }
 Graphik::~Graphik()
-{}
+{
+}
 void Graphik::startGame()
 {
-	do{
-    	werase(gameWin);
-    	printBord();
+	clear();
+	do
+	{
+		box(gameWin, 0, 0);
+		printBord();
+		input();
+		printPlayer();
 		wrefresh(gameWin);
-
-	}while(true);
+	} while (true);
 }
 void Graphik::printBord()
 {
-        box(gameWin, 0, 0);
-        getch();
-        for (int x = 0; x < LENGHT_WIN; x++)
-        {
-            for (int y = 0; y < HEIGHT_BORD - 1; y++)
-            {
-                if (x % 10 == 0)
-                {
-                    mvwaddch(gameWin, y, x, ACS_VLINE);
-                }
-                if (y % 5 == 0)
-                {
-                    mvwaddch(gameWin, y, x, ACS_HLINE);
-                }
-            }
-        }
+	for (int x = 0; x < LENGHT_WIN; x++)
+	{
+		for (int y = 0; y < HEIGHT_BORD - 1; y++)
+		{
+			if (x % 10 == 0)
+			{
+				mvwaddch(gameWin, y, x, ACS_VLINE);
+			}
+			if (y % 5 == 0)
+			{
+				mvwaddch(gameWin, y, x, ACS_HLINE);
+			}
+		}
+	}
 }
 void Graphik::exitGame()
 {
 }
 void Graphik::input()
 {
-			switch(getch()){
-			case 'w':
-				game.cursorGoUp();
-				break;
-			case 'a':
-				game.cursorGoLeft();
-				break;
-			case 'd':
-				game.cursorGoRight();
-				break;
-			case 's':
-				game.cursorGoDawn();
-				break;
-			case 10:
-				game.addSimvol();
+	switch(getch())
+	{
+		case 'w':
+			game.cursorGoUp();
 			break;
-		}
+		case 'a':
+			game.cursorGoLeft();
+			break;
+		case 'd':
+			game.cursorGoRight();
+			break;
+		case 's':
+			game.cursorGoDawn();
+			break;
+		case 10:
+			game.addSimvol();
+		break;
+	}
 }
+
 void Graphik::printPlayer()
 {
-		size_t sizeMesig = 8;
-		std::string playerNumberMesig = "PLAYER: ";
-		std::string playerNumber = std::to_string(game.getPlayerNumber());
-		mvwprintw(gameWin,HEIGHT_BORD+1 , PRINT_PLEYER_NUMBER_X , "%s",playerNumberMesig.c_str());
-		mvwprintw(gameWin,HEIGHT_BORD +1 ,PRINT_PLEYER_NUMBER_X + sizeMesig , "%s", playerNumber.c_str());
+	size_t sizeMesig = 8;
+	std::string playerNumberMesig = "PLAYER: ";
+	std::string playerNumber = std::to_string(game.getPlayerNumber());
+	mvwprintw(gameWin, HEIGHT_BORD + 1, PRINT_PLEYER_NUMBER_X, "%s", playerNumberMesig.c_str());
+	mvwprintw(gameWin, HEIGHT_BORD + 1, PRINT_PLEYER_NUMBER_X + sizeMesig, "%s", playerNumber.c_str());
 }
 void Graphik::printWiner()
 {
