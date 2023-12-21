@@ -17,7 +17,7 @@ class bord
 {
 public:
 	bord();
-	void add(int y, int x, int playerNumber);
+	bool add(int y, int x, int playerNumber);
 	bool haveWiner();
 	unit getUnit(int y, int x);
 
@@ -38,7 +38,8 @@ public:
 	unit getBordUnit(int y, int x);
 
 	~Game();
-
+	int getX();
+	int getY();
 private:
 	bord Bord;
 	int x;

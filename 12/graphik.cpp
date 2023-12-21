@@ -2,10 +2,9 @@
 #include <vector>
 #include <string>
 
-inline const int HEIGHT_BORD = 16;
+inline const int HEIGHT_BORD = 15;
 inline const int LENGHT_WIN = 30;
 inline const int HEIGHT_WIN = 20;
-inline const int BOX_HEIGHT = 16;
 inline const int PRINT_PLEYER_NUMBER_X = 2;
 
 Graphik::Graphik()
@@ -28,24 +27,27 @@ void Graphik::startGame()
 }
 void Graphik::printBord()
 {
-	for (int x = 0; x < LENGHT_WIN; x++)
-	{
-		for (int y = 0; y < HEIGHT_BORD - 1; y++)
-		{
-			if (x % 10 == 0)
-			{
-				mvwaddch(gameWin, y, x, ACS_VLINE);
-			}
-			if (y % 5 == 0)
-			{
-				mvwaddch(gameWin, y, x, ACS_HLINE);
-			}
-		}
-	}
+	drawHorizontalLines();
+	drawVerticalLines();
+
 }
+
+void Graphik::drawVerticalLines(){
+    for(int i = 0; i < 3; ++i){
+        mvwvline(gameWin, 1, i * LENGHT_WIN / 3, 0, HEIGHT_BORD - 1);
+    }
+}
+
+void Graphik::drawHorizontalLines(){
+    for(int i = 0; i <= 3; ++i){
+        mvwhline(gameWin, i * (HEIGHT_WIN - 5) / 3, 1, 0, LENGHT_WIN - 2);
+    }
+}
+
 void Graphik::exitGame()
 {
 }
+
 void Graphik::input()
 {
 	switch(getch())

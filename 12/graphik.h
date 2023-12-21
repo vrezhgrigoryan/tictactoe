@@ -19,6 +19,8 @@ public:
     WINDOW *gameWin;
     int activX;
     int activY;
+    void    drawVerticalLines();
+    void    drawHorizontalLines();
 private:
 	Game game;
 };

@@ -7,16 +7,19 @@ bord::bord()
 	Matrix.push_back(row(MATRIX_X, 0));
 }
 
-void bord::add(int y, int x, int playerNumber)
+bool bord::add(int y, int x, int playerNumber)
 {
-	if (playerNumber == 1)
+	if (playerNumber == 1 && Matrix[y][x] == 0)
 	{
 		Matrix[y][x] = 1;
+		return true;
 	}
-	if (playerNumber == 2)
+	if (playerNumber == 2 && Matrix[y][x] == 0)
 	{
 		Matrix[y][x] = 2;
+		return true;
 	}
+	return false;
 }
 bool bord::haveWiner()
 {
@@ -106,15 +109,23 @@ void Game::cursorGoDawn()
 }
 void Game::addSimvol()
 {
-	Bord.add(x, y, playerNumber);
-	if (playerNumber == 1)
-	{
-		playerNumber = 2;
+	if (Bord.add(x, y, playerNumber)){
+		if (playerNumber == 1)
+		{
+			playerNumber = 2;
+		}
+		else if (playerNumber == 2)
+		{
+			playerNumber = 1;
+		}
 	}
-	else if (playerNumber == 2)
-	{
-		playerNumber = 1;
-	}
+}
+
+int Game::getX(){
+	return x;
+}
+int Game::getY(){
+	return y;
 }
 unit Game::getBordUnit(int y, int x)
 {
