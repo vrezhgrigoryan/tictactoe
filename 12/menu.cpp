@@ -7,7 +7,6 @@ Menu::Menu() : Winisopen(true), cursorY(CURSOR_START_Y)
     initscr();
     cbreak();
     noecho();
-    curs_set(0);
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     menuWindow = newwin(MENU_HEIGHT, MENU_LENGHT, 0, 0);

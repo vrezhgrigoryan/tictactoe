@@ -40,8 +40,8 @@ public:
 	~Game();
 	int getX();
 	int getY();
-private:
 	bord Bord;
+private:
 	int x;
 	int y;
 	int playerNumber;

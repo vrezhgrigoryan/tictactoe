@@ -46,14 +46,13 @@ bool bord::haveWiner()
 		return true;
 
 	else
-		return true;
+		return false;
 }
+
 unit bord::getUnit(int y, int x)
 {
 	return Matrix[y][x];
 }
-
-////////////////////////////////////////////////////////////game logic /
 
 Game::Game() : playerNumber(1)
 {
@@ -65,9 +64,9 @@ int Game::getPlayerNumber()
 }
 void Game::cursorGoUp()
 {
-	if (y < MATRIX_Y)
+	if (y > 0)
 	{
-		y++;
+		y--;
 	}
 	else
 	{
@@ -98,9 +97,9 @@ void Game::cursorGoRight()
 }
 void Game::cursorGoDawn()
 {
-	if (y > 0)
+	if (y < MATRIX_Y)
 	{
-		y--;
+		y++;
 	}
 	else
 	{
@@ -109,7 +108,7 @@ void Game::cursorGoDawn()
 }
 void Game::addSimvol()
 {
-	if (Bord.add(x, y, playerNumber)){
+	if (Bord.add(y, x, playerNumber)){
 		if (playerNumber == 1)
 		{
 			playerNumber = 2;
