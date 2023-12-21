@@ -7,17 +7,14 @@ class Graphik
 {
 public:
     Graphik();
+    ~Graphik();
     void startGame();
     void printBord();
     void exitGame();
     void input();
     void printPlayer();
     void printWiner();
-
-    ~Graphik();
-
 private:
-    Game game;
     WINDOW *gameWin;
 };
 

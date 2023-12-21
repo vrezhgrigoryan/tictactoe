@@ -1,55 +1,54 @@
 #include "graphik.h"
-
 #include <vector>
 
-inline const int HEIGHT = 10;
-inline const int LENGHT = 26;
+inline const int HEIGHT = 16;
+inline const int LENGHT = 30;
 inline const int BOX_HEIGHT = 16;
 
-Graphik::Graphik(){
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-    keypad(stdscr, TRUE);
-    nodelay(stdscr, TRUE);
-    gameWin = newwin(HEIGHT, LENGHT, 0, 0);
-    box(gameWin, 0, 0);
-
+Graphik::Graphik()
+{
 }
+Graphik::~Graphik()
+{}
 void Graphik::startGame()
 {
+    clear();
+    printBord();
 }
 void Graphik::printBord()
 {
-   
- 
-
+    gameWin = newwin(HEIGHT, LENGHT, 0, 0);
     box(gameWin, 0, 0);
-    for (int x = 0; x < HEIGHT; x++)
+    do
     {
-        for (int y = 0; y < LENGHT - 1; y++)
+        box(gameWin, 0, 0);
+        getch();
+        for (int x = 0; x < LENGHT; x++)
         {
-            if (x % 10 == 0)
+            for (int y = 0; y < HEIGHT - 1; y++)
             {
-                mvwaddch(gameWin, y, x, ACS_VLINE);
-            }
-            if (y % 5 == 0)
-            {
-                mvwaddch(gameWin, y, x, ACS_HLINE);
+                if (x % 10 == 0)
+                {
+                    mvwaddch(gameWin, y, x, ACS_VLINE);
+                }
+                if (y % 5 == 0)
+                {
+                    mvwaddch(gameWin, y, x, ACS_HLINE);
+                }
             }
         }
-    }
+        wrefresh(gameWin);
+    } while (true);
 }
-void Graphik::exitGame(){
-
+void Graphik::exitGame()
+{
 }
-void Graphik::input(){
-
+void Graphik::input()
+{
 }
-void Graphik::printPlayer(){
-
+void Graphik::printPlayer()
+{
 }
-void Graphik::printWiner(){
-    
+void Graphik::printWiner()
+{
 }

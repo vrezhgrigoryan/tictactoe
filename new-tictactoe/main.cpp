@@ -1,8 +1,9 @@
 #include "menu.h"
 
-int main(){
-	    Menu menu;
-	        menu.run_menu();
+int main()
+{
+	Menu menu;
+	menu.run_menu();
 
-		    return 0;
+	return 0;
 }
