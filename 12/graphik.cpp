@@ -22,10 +22,14 @@ void Graphik::startGame()
 		if (game.Bord.haveWiner())
 		{
 			wclear(gameWin);
-			mvwprintw(gameWin, 4, PRINT_PLEYER_NUMBER_X, "PLAYER %d's WIN:", game.getPlayerNumber());
+			mvwprintw(gameWin, 17, PRINT_PLEYER_NUMBER_X, "PLAYER %d's WIN:", game.getPlayerNumber());
 			wrefresh(gameWin);
-			break;
+			game.claerBoard();
+			startGame();
 		}
+		if (game.gameTie()){
+			exit_curses(false);
+		};
 		printPlayer();
 		printBord();
 		input();
@@ -46,7 +50,7 @@ void Graphik::printBord()
 			}
 			else if (game.getBordUnit(i, j) == 2)
 			{
-				mvwaddch(gameWin, 3 + i * 5, 5 + j * 10, 'Y');
+				mvwaddch(gameWin, 3 + i * 5, 5 + j * 10, 'O');
 			}
 		}
 	}

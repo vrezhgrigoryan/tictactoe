@@ -42,9 +42,8 @@ bool bord::haveWiner()
 	/* Check diagonals */
 	else if (Matrix[0][0] == Matrix[1][1] && Matrix[2][2] == Matrix[1][1] && Matrix[1][1] != 0)
 		return true;
-	else if (Matrix[2][2] == Matrix[1][1] && Matrix[0][0] == Matrix[1][1] && Matrix[1][1] != 0)
+	else if (Matrix[2][0] == Matrix[1][1] && Matrix[0][2] == Matrix[1][1] && Matrix[1][1] != 0)
 		return true;
-
 	else
 		return false;
 }
@@ -73,6 +72,28 @@ void Game::cursorGoUp()
 		return;
 	}
 }
+
+void Game::claerBoard(){
+	Bord.Matrix.clear();
+	Bord.Matrix.push_back(row(MATRIX_X, 0));
+	Bord.Matrix.push_back(row(MATRIX_X, 0));
+	Bord.Matrix.push_back(row(MATRIX_X, 0));
+};
+bool Game::gameTie()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (this->Bord.Matrix[i][j] == 0)
+			{	
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void Game::cursorGoLeft()
 {
 	if (x > 0)

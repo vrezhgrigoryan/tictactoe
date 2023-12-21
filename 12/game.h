@@ -20,9 +20,9 @@ public:
 	bool add(int y, int x, int playerNumber);
 	bool haveWiner();
 	unit getUnit(int y, int x);
+	std::vector<std::vector<int>> Matrix;
 
 private:
-	matrix Matrix;
 };
 
 class Game
@@ -36,11 +36,14 @@ public:
 	void cursorGoDawn();
 	void addSimvol();
 	unit getBordUnit(int y, int x);
+	void claerBoard();
+	bool gameTie();
 
 	~Game();
 	int getX();
 	int getY();
 	bord Bord;
+
 private:
 	int x;
 	int y;
