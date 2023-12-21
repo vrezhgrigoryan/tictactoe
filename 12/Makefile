@@ -1,5 +1,5 @@
 all:
-	g++ main.cpp game.cpp menu.cpp graphik.cpp -lncurses
+	g++ main.cpp game.cpp menu.cpp graphik.cpp -lncurses -o tictactoe
 
 
 clean:
