@@ -74,13 +74,12 @@ void Menu::start()
 {
     // delwin(menuWindow);
     // Winisopen = false;
-    exit();
     graphik.startGame();
 }
 
 void Menu::exit()
 {
-    clear();
+    
 }
 
 // Menu::~Menu()
